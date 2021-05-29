@@ -148,7 +148,7 @@ model {
                 staticLibArchiver.executable 'arm-linux-gnueabihf-ar'
                 
                 cCompiler.withArguments { args -> args << '-fno-stack-protector' }
-                cppCompiler.withArguments { args -> args << '--fno-stack-protector' }
+                cppCompiler.withArguments { args -> args << '-fno-stack-protector' }
                 linker.withArguments { args -> args << '-fno-stack-protector' }
             }
             target("linux_glibc_aarch64") {
