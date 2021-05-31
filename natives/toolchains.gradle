@@ -143,7 +143,7 @@ model {
                 staticLibArchiver.executable 'x86_64-apple-darwin15-ar'
             }
             target("darwin_aarch64") {
-                cCompiler.executable 'arm64-apple-darwin20.4.0-clang'
+                cCompiler.executable 'clang'
                 cppCompiler.executable 'clang++'
                 linker.executable 'clang++'
                 linker.withArguments { args ->
