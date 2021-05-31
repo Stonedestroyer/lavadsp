@@ -134,13 +134,13 @@ model {
         visualCpp(VisualCpp)
         clang(Clang) {
             target("darwin_x86_64") {
-                cCompiler.executable 'x86_64-apple-darwin15-clang'
-                cppCompiler.executable 'x86_64-apple-darwin15-clang++-libc++'
-                linker.executable 'x86_64-apple-darwin15-clang++-libc++'
+                cCompiler.executable 'clang'
+                cppCompiler.executable 'clang++'
+                linker.executable 'clang++'
                 linker.withArguments { args ->
                     args.removeIf { it.startsWith("-Wl,-soname") }
                 }
-                staticLibArchiver.executable 'x86_64-apple-darwin15-ar'
+                staticLibArchiver.executable 'ar'
             }
             target("darwin_aarch64") {
                 cCompiler.executable 'clang'
