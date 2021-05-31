@@ -13,8 +13,7 @@ task buildWin32 {}
 task buildWin64 {}
 
 task buildDarwin {
-    dependsOn buildDarwin64
-    dependson buildDarwinAarch64
+    dependsOn buildDarwin64, buildDarwinAarch64
 }
 
 task buildFreebsd {
