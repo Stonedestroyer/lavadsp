@@ -39,7 +39,7 @@ static def platformName(p) {
 
 def targetDirectory = [
         darwin_x86_64: "darwin-x86-64",
-        darwin_aarch64: "darwin-aarch64"
+        darwin_aarch64: "darwin-aarch64",
         freebsd_x86_64: "freebsd-x86-64",
         linux_glibc_x86: "linux-x86",
         linux_glibc_x86_64: "linux-x86-64",
