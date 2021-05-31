@@ -128,6 +128,7 @@ project.ext.isArm64 = { platform ->
 def base_jni_include = System.getProperty("java.home") + '/include'
 def os_jni_include = base_jni_include + '/' + (Os.isFamily(Os.FAMILY_WINDOWS) ? 'win32' : Os.isFamily(Os.FAMILY_MAC) ? 'darwin' : 'linux')
 def freebsd_sysroot = new File(rootProject.projectDir, 'freebsd_sysroot')
+// def darwin_sysroot = new File(rootProject.projectDir, 'darwin_sysroot')
 
 model {
     toolChains {
@@ -146,9 +147,18 @@ model {
                 cCompiler.executable 'clang'
                 cppCompiler.executable 'clang++'
                 linker.executable 'clang++'
-                linker.withArguments { args ->
-                    args.removeIf { it.startsWith("-Wl,-soname") }
+                cCompiler.withArguments { args ->
+                    args << "--sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/arm\n"
                 }
+                cppCompiler.withArguments { args ->
+                    args << "--sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/arm\n"
+                }
+                linker.withArguments { args ->
+                    args << "--sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/arm\n"
+                }
+                // linker.withArguments { args ->
+                //     args.removeIf { it.startsWith("-Wl,-soname")}
+                // }
                 staticLibArchiver.executable 'ar'
             }
         }
