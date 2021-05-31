@@ -148,13 +148,13 @@ model {
                 cppCompiler.executable 'clang++'
                 linker.executable 'clang++'
                 cCompiler.withArguments { args ->
-                    args << "--sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/arm\n"
+                    args << "--sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include"
                 }
                 cppCompiler.withArguments { args ->
-                    args << "--sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/arm\n"
+                    args << "--sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include"
                 }
                 linker.withArguments { args ->
-                    args << "--sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/arm\n"
+                    args << "--sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include"
                 }
                 // linker.withArguments { args ->
                 //     args.removeIf { it.startsWith("-Wl,-soname")}
