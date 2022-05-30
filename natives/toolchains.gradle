@@ -131,18 +131,12 @@ model {
         visualCpp(VisualCpp)
         clang(Clang) {
             target("darwin_x86_64") {
-                cCompiler.executable 'o64-clang'
-                cppCompiler.executable 'o64-clang++-libc++'
-                linker.executable 'o64-clang++-libc++'
-
-                cCompiler.withArguments { args -> args << '-arch x86_64' << '-arch arm' }
-                cppCompiler.withArguments { args -> args << '-arch x86_64' << '-arch arm' }
-                linker.withArguments { args -> args << '-arch x86_64' << '-arch arm' }
-
+                cCompiler.executable 'x86_64-apple-darwin21.4-clang'
+                cppCompiler.executable 'x86_64-apple-darwin21.4-clang++-libc++'
+                linker.executable 'x86_64-apple-darwin21.4-clang++-libc++'
                 linker.withArguments { args ->
                     args.removeIf { it.startsWith("-Wl,-soname") }
                 }
-
                 staticLibArchiver.executable 'x86_64-apple-darwin21.4-ar'
             }
         }
