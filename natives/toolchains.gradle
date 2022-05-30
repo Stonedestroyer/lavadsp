@@ -134,9 +134,9 @@ model {
                 cCompiler.executable 'o64-clang'
                 cppCompiler.executable 'o64-clang++-libc++'
                 linker.executable 'o64-clang++-libc++'
-                cCompiler.withArguments { args -> args << '--arch=x86_64' << '--arch=arm64' }
-                cppCompiler.withArguments { args -> args << '--arch=x86_64' << '--arch=arm64' }
-                linker.withArguments { args -> args << '--arch=x86_64' << '-arch=arm64' }
+                cCompiler.withArguments { args -> args << '-march=x86_64' << '-march=arm64' }
+                cppCompiler.withArguments { args -> args << '-march=x86_64' << '-march=arm64' }
+                linker.withArguments { args -> args << '-march=x86_64' << '-march=arm64' }
 
                 linker.withArguments { args ->
                     args.removeIf { it.startsWith("-Wl,-soname") }
