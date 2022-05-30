@@ -134,6 +134,9 @@ model {
                 cCompiler.executable 'o64-clang'
                 cppCompiler.executable 'o64-clang++-libc++'
                 linker.executable 'o64-clang++-libc++'
+                cCompiler.withArguments { args -> args << '--arch=x86_64' << '--arch=arm64' }
+                cppCompiler.withArguments { args -> args << '--arch=x86_64' << '--arch=arm64' }
+                linker.withArguments { args -> args << '--arch=x86_64' << '-arch=arm64' }
 
                 linker.withArguments { args ->
                     args.removeIf { it.startsWith("-Wl,-soname") }
@@ -200,7 +203,7 @@ model {
     }
     platforms {
         darwin_x86_64 {
-            architecture "x86_64 arm64"
+            architecture "x86_64"
             operatingSystem "mac"
         }
         freebsd_x86_64 {
