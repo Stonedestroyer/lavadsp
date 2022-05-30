@@ -7,80 +7,80 @@ on:
   pull_request:
 
 jobs:
-  linux-x86-natives:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
-      - name: Cache natives
-        uses: actions/cache@v2
-        id: cache-natives
-        with:
-          path: |
-            src/main/resources/natives/linux-x86
-            src/main/resources/natives/linux-x86-64
-            src/main/resources/natives/linux-musl-x86-64
-          key: linux-x86-${{ hashFiles('natives/**') }}
-      - name: Set up JDK
-        uses: actions/setup-java@v1
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        with:
-          java-version: 15
-      - name: Install x86 compilers
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        run: |
-          sudo apt update
-          sudo apt install libc6-dev-i386 linux-libc-dev g++-multilib
-          curl -sL https://github.com/natanbc/actions-binaries/releases/download/1/x86_64-linux-musl-cross.tgz -o - | tar xzf -
-      - name: Build x86 natives
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        run: |
-          chmod +x gradlew
-          export PATH="$PATH:$(pwd)/x86_64-linux-musl-cross/bin"
-          ./gradlew buildLinuxGlibc32 buildLinuxGlibc64 buildLinuxMusl64
-      - uses: actions/upload-artifact@v2
-        with:
-          name: linux-x86-natives
-          path: src/main/resources/natives/*
-  linux-arm-natives:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
-      - name: Cache natives
-        uses: actions/cache@v2
-        id: cache-natives
-        with:
-          path: |
-            src/main/resources/natives/linux-arm
-            src/main/resources/natives/linux-aarch64
-            src/main/resources/natives/linux-musl-aarch64
-          key: linux-arm-${{ hashFiles('natives/**') }}
-      - name: Set up JDK
-        uses: actions/setup-java@v1
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        with:
-          java-version: 15
-      - name: Install ARM compilers
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        run: |
-          # installing these two breaks i386 compilation
-          # https://bugs.launchpad.net/ubuntu/+source/gcc-defaults/+bug/1300211
-          sudo apt install g++-arm-linux-gnueabihf
-          sudo apt install g++-aarch64-linux-gnu
-          curl -sL https://github.com/natanbc/actions-binaries/releases/download/1/aarch64-linux-musl-cross.tgz -o - | tar xzf -
-      - name: Build ARM natives
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        run: |
-          chmod +x gradlew
-          export PATH="$PATH:$(pwd)/aarch64-linux-musl-cross/bin"
-          ./gradlew buildLinuxGlibcArm buildLinuxGlibcAarch64 buildLinuxMuslAarch64
-      - uses: actions/upload-artifact@v2
-        with:
-          name: linux-arm-natives
-          path: src/main/resources/natives/*
+  #linux-x86-natives:
+  #  runs-on: ubuntu-20.04
+  #  steps:
+  #    - uses: actions/checkout@v2
+  #      with:
+  #        submodules: recursive
+  #    - name: Cache natives
+  #      uses: actions/cache@v2
+  #      id: cache-natives
+  #      with:
+  #        path: |
+  #          src/main/resources/natives/linux-x86
+  #          src/main/resources/natives/linux-x86-64
+  #          src/main/resources/natives/linux-musl-x86-64
+  #        key: linux-x86-${{ hashFiles('natives/**') }}
+  #    - name: Set up JDK
+  #      uses: actions/setup-java@v1
+  #      if: steps.cache-natives.outputs.cache-hit != 'true'
+  #      with:
+  #        java-version: 15
+  #    - name: Install x86 compilers
+  #      if: steps.cache-natives.outputs.cache-hit != 'true'
+  #      run: |
+  #        sudo apt update
+  #        sudo apt install libc6-dev-i386 linux-libc-dev g++-multilib
+  #        curl -sL https://github.com/natanbc/actions-binaries/releases/download/1/x86_64-linux-musl-cross.tgz -o - | tar xzf -
+  #    - name: Build x86 natives
+  #      if: steps.cache-natives.outputs.cache-hit != 'true'
+  #      run: |
+  #        chmod +x gradlew
+  #        export PATH="$PATH:$(pwd)/x86_64-linux-musl-cross/bin"
+  #        ./gradlew buildLinuxGlibc32 buildLinuxGlibc64 buildLinuxMusl64
+  #    - uses: actions/upload-artifact@v2
+  #      with:
+  #        name: linux-x86-natives
+  #        path: src/main/resources/natives/*
+  #linux-arm-natives:
+  #  runs-on: ubuntu-20.04
+  #  steps:
+  #    - uses: actions/checkout@v2
+  #      with:
+  #        submodules: recursive
+  #    - name: Cache natives
+  #      uses: actions/cache@v2
+  #      id: cache-natives
+  #      with:
+  #        path: |
+  #          src/main/resources/natives/linux-arm
+  #          src/main/resources/natives/linux-aarch64
+  #          src/main/resources/natives/linux-musl-aarch64
+  #        key: linux-arm-${{ hashFiles('natives/**') }}
+  #    - name: Set up JDK
+  #      uses: actions/setup-java@v1
+  #      if: steps.cache-natives.outputs.cache-hit != 'true'
+  #      with:
+  #        java-version: 15
+  #    - name: Install ARM compilers
+  #      if: steps.cache-natives.outputs.cache-hit != 'true'
+  #      run: |
+  #        # installing these two breaks i386 compilation
+  #        # https://bugs.launchpad.net/ubuntu/+source/gcc-defaults/+bug/1300211
+  #        sudo apt install g++-arm-linux-gnueabihf
+  #        sudo apt install g++-aarch64-linux-gnu
+  #        curl -sL https://github.com/natanbc/actions-binaries/releases/download/1/aarch64-linux-musl-cross.tgz -o - | tar xzf -
+  #    - name: Build ARM natives
+  #      if: steps.cache-natives.outputs.cache-hit != 'true'
+  #      run: |
+  #        chmod +x gradlew
+  #        export PATH="$PATH:$(pwd)/aarch64-linux-musl-cross/bin"
+  #        ./gradlew buildLinuxGlibcArm buildLinuxGlibcAarch64 buildLinuxMuslAarch64
+  #    - uses: actions/upload-artifact@v2
+  #      with:
+  #        name: linux-arm-natives
+  #        path: src/main/resources/natives/*
   mac-natives:
     runs-on: ubuntu-20.04
     steps:
@@ -102,7 +102,7 @@ jobs:
       - name: Install darwin compiler
         if: steps.cache-natives.outputs.cache-hit != 'true'
         run: |
-          curl -sL https://github.com/Stonedestroyer/github-action-binaries/releases/download/new_release/osxcross.tar.gz -o - | tar -xzf -
+          curl -sL https://github.com/Stonedestroyer/testrepo/releases/download/untagged-a27a4982c4dd4b963854/osxcross.tar.gz -o - | tar -xzf -
           sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
           sudo apt update
           sudo apt install libssl1.0.0
@@ -150,54 +150,42 @@ jobs:
   #      with:
   #        name: freebsd-natives
   #        path: src/main/resources/natives/*
-  windows-natives:
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
-      - name: Cache natives
-        uses: actions/cache@v2
-        id: cache-natives
-        with:
-          path: |
-            src/main/resources/natives/win-x86
-            src/main/resources/natives/win-x86-64
-          key: win-${{ hashFiles('natives/**') }}
-      - name: Set up JDK
-        uses: actions/setup-java@v1
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        with:
-          java-version: 15
-      - name: Build natives
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        run: |
-          .\gradlew.bat buildWin
-      - uses: actions/upload-artifact@v2
-        with:
-          name: windows-natives
-          path: src/main/resources/natives/*
+  #windows-natives:
+  #  runs-on: windows-2019
+  #  steps:
+  #    - uses: actions/checkout@v2
+  #      with:
+  #        submodules: recursive
+  #    - name: Cache natives
+  #      uses: actions/cache@v2
+  #      id: cache-natives
+  #      with:
+  #        path: |
+  #          src/main/resources/natives/win-x86
+  #          src/main/resources/natives/win-x86-64
+  #        key: win-${{ hashFiles('natives/**') }}
+  #    - name: Set up JDK
+  #      uses: actions/setup-java@v1
+  #      if: steps.cache-natives.outputs.cache-hit != 'true'
+  #      with:
+  #        java-version: 15
+  #    - name: Build natives
+  #      if: steps.cache-natives.outputs.cache-hit != 'true'
+  #      run: |
+  #        .\gradlew.bat buildWin
+  #    - uses: actions/upload-artifact@v2
+  #      with:
+  #        name: windows-natives
+  #        path: src/main/resources/natives/*
   build:
-    needs: [linux-x86-natives, linux-arm-natives, mac-natives, windows-natives]
+    needs: [mac-natives]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - run: mkdir -p src/main/resources/natives
       - uses: actions/download-artifact@v2
         with:
-          name: linux-x86-natives
-          path: src/main/resources/natives/
-      - uses: actions/download-artifact@v2
-        with:
-          name: linux-arm-natives
-          path: src/main/resources/natives/
-      - uses: actions/download-artifact@v2
-        with:
           name: mac-natives
-          path: src/main/resources/natives/
-      - uses: actions/download-artifact@v2
-        with:
-          name: windows-natives
           path: src/main/resources/natives/
       - name: Compile java
         run: |

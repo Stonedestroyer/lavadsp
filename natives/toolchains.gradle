@@ -135,10 +135,7 @@ model {
                 cppCompiler.executable 'o64-clang++-libc++'
                 linker.executable 'o64-clang++-libc++'
 
-                cCompiler.withArguments { args -> args << '-arch x86_64' << '-arch arm64e' }
-                cppCompiler.withArguments { args -> args << '-arch x86_64' << '-arch arm64e' }
-                linker.withArguments { args -> args << '-arch x86_64' << '-arch arm64e' }
-
+                cCompiler.withArguments { args -> args << '-arch arm64' << '-arch x86_64'}
                 linker.withArguments { args ->
                     args.removeIf { it.startsWith("-Wl,-soname") }
                 }
