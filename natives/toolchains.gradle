@@ -1,5 +1,6 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
+task buildDarwinAarch64 {}
 task buildDarwin64 {}
 task buildFreebsd64 {}
 task buildLinuxGlibc32 {}
@@ -13,6 +14,7 @@ task buildWin64 {}
 
 task buildDarwin {
     dependsOn buildDarwin64
+    dependsOn buildDarwinAarch64
 }
 
 task buildFreebsd {
@@ -37,6 +39,7 @@ static def platformName(p) {
 
 def targetDirectory = [
         darwin_x86_x64: "darwin",
+        darwin_aarch64: "darwin",
         freebsd_x86_64: "freebsd-x86-64",
         linux_glibc_x86: "linux-x86",
         linux_glibc_x86_64: "linux-x86-64",
@@ -58,6 +61,7 @@ project.ext.targetDirectoryName = { platform ->
 
 def tasksByTarget = [
         darwin_x86_x64:      buildDarwin64,
+        darwin_aarch64:      buildDarwinAarch64,
         freebsd_x86_64:      buildFreebsd64,
         linux_glibc_x86:     buildLinuxGlibc32,
         linux_glibc_x86_64:  buildLinuxGlibc64,
@@ -131,15 +135,26 @@ model {
         visualCpp(VisualCpp)
         clang(Clang) {
             target("darwin_x86_x64") {
-                cCompiler.executable 'o64h-clang'
-                cppCompiler.executable 'o64h-clang++-libc++'
-                linker.executable 'o64h-clang++-libc++'
+                cCompiler.executable 'x86_x64-clang'
+                cppCompiler.executable 'x86_x64-clang++-libc++'
+                linker.executable 'x86_x64-clang++-libc++'
 
                 linker.withArguments { args ->
                     args.removeIf { it.startsWith("-Wl,-soname") }
                 }
 
                 staticLibArchiver.executable 'x86_64-apple-darwin21.4-ar'
+            }
+            target("darwin_aarch64") {
+                cCompiler.executable 'aarch64-clang'
+                cppCompiler.executable 'aarch64-clang++-libc++'
+                linker.executable 'aarch64-clang++-libc++'
+
+                linker.withArguments { args ->
+                    args.removeIf { it.startsWith("-Wl,-soname") }
+                }
+
+                staticLibArchiver.executable 'aarch64-apple-darwin21.4-ar'
             }
         }
         glibc(Gcc) {
@@ -201,6 +216,10 @@ model {
     platforms {
         darwin_x86_x64 {
             architecture "x86_64"
+            operatingSystem "mac"
+        }
+        darwin_aarch64 {
+            architecture "aarch64"
             operatingSystem "mac"
         }
         freebsd_x86_64 {
