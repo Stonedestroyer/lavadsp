@@ -135,9 +135,9 @@ model {
         visualCpp(VisualCpp)
         clang(Clang) {
             target("darwin_x86_x64") {
-                cCompiler.executable 'x86_64-clang'
-                cppCompiler.executable 'x86_64-clang++-libc++'
-                linker.executable 'x86_64-clang++-libc++'
+                cCompiler.executable 'x86_64-apple-darwin21.4-clang'
+                cppCompiler.executable 'x86_64-apple-darwin21.4-clang++-libc++'
+                linker.executable 'x86_64-apple-darwin21.4-clang++-libc++'
 
                 linker.withArguments { args ->
                     args.removeIf { it.startsWith("-Wl,-soname") }
@@ -146,9 +146,9 @@ model {
                 staticLibArchiver.executable 'x86_64-apple-darwin21.4-ar'
             }
             target("darwin_aarch64") {
-                cCompiler.executable 'aarch64-clang'
-                cppCompiler.executable 'aarch64-clang++-libc++'
-                linker.executable 'aarch64-clang++-libc++'
+                cCompiler.executable 'aarch64-apple-darwin21.4-clang'
+                cppCompiler.executable 'aarch64-apple-darwin21.4-clang++-libc++'
+                linker.executable 'aarch64-apple-darwin21.4-clang++-libc++'
 
                 linker.withArguments { args ->
                     args.removeIf { it.startsWith("-Wl,-soname") }
