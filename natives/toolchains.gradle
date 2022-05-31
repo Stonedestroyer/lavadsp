@@ -15,8 +15,8 @@ task buildDarwinUniversalBinary {
     def newPath = new File(rootProject.projectDir, "src/main/resources/natives/" + "darwin" + "/").getAbsoluteFile()
     print(newPath)
     // use lipo to combine two files above
-    workingDir newPath
     exec {
+        workingDir newPath
         commandLine "lipo"
         args "-create"
         args "libtimescale-x86-64.dylib"
