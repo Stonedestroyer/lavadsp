@@ -72,8 +72,8 @@ model {
                     }
                     break
                     case "universal":
-                        cCompiler.args << '-arch=x86_64' << '-arch=arm64'
-                        cppCompiler.args << '-arch=x86_64' << '-arch=arm64'
+                        cCompiler.args << '-arch 86_64' << '-arch arm64'
+                        cppCompiler.args << '-arch x86_64' << '-arch arm64'
                         printf("I got here and ${cppCompiler.args}")
                     break
             //todo arm vectorization
