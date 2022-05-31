@@ -12,7 +12,7 @@ task buildLinuxMuslAarch64 {}
 task buildWin32 {}
 task buildWin64 {}
 task buildDarwinUniversalBinary {
-    def newPath = new File(rootProject.projectDir, "src/main/resources/natives/" + "darwin" + "/").getAbsoluteFile()
+    def newPath = new File(rootProject.projectDir, "src/main/resources/natives/" + "darwin" + "/")
 
     def x86FilePath = new File(newPath, 'libtimescale-x86-64.dylib')
     def aarch64FilePath = new File(newPath, 'libtimescale-aarch64.dylib')
