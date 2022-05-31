@@ -100,7 +100,7 @@ jobs:
           java-version: 15
       - name: Install darwin compiler
         run: |
-          curl -sL https://github.com/Stonedestroyer/test_project/releases/download/test/osxcross.tar.gz -o - | tar -xzf -
+          curl -sL https://github.com/Stonedestroyer/this_is_the_best_project/releases/download/www/osxcross.tar.gz -o - | tar -xzf -
           sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
           sudo apt update
           sudo apt install libssl1.0.0
