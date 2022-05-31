@@ -1,6 +1,6 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
-task buildDarwin64 {}
+task buildDarwinUniversalBinary {}
 task buildFreebsd64 {}
 task buildLinuxGlibc32 {}
 task buildLinuxGlibc64 {}
@@ -12,7 +12,7 @@ task buildWin32 {}
 task buildWin64 {}
 
 task buildDarwin {
-    dependsOn buildDarwin64
+    dependsOn buildDarwinUniversalBinary
 }
 
 task buildFreebsd {
@@ -36,7 +36,7 @@ static def platformName(p) {
 }
 
 def targetDirectory = [
-        darwin_x86_64: "darwin",
+        darwin: "darwin",
         freebsd_x86_64: "freebsd-x86-64",
         linux_glibc_x86: "linux-x86",
         linux_glibc_x86_64: "linux-x86-64",
@@ -57,7 +57,7 @@ project.ext.targetDirectoryName = { platform ->
 }
 
 def tasksByTarget = [
-        darwin_x86_64:       buildDarwin64,
+        darwin:       buildDarwinUniversalBinary,
         freebsd_x86_64:      buildFreebsd64,
         linux_glibc_x86:     buildLinuxGlibc32,
         linux_glibc_x86_64:  buildLinuxGlibc64,
@@ -130,7 +130,7 @@ model {
     toolChains {
         visualCpp(VisualCpp)
         clang(Clang) {
-            target("darwin_x86_64") {
+            target("darwin") {
                 cCompiler.executable 'o64-clang'
                 cppCompiler.executable 'o64-clang++-libc++'
                 linker.executable 'o64-clang++-libc++'
@@ -202,8 +202,9 @@ model {
         }
     }
     platforms {
-        darwin_x86_64 {
+        darwin {
             architecture "x86_64"
+            architecture "arm64e"
             operatingSystem "mac"
         }
         freebsd_x86_64 {
