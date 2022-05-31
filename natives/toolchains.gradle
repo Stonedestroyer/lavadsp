@@ -16,9 +16,9 @@ task buildDarwinUniversalBinary {
     print(newPath)
     // use lipo to combine two files above
 
-    def x86FilePath = new File(newPath + 'libtimescale-x86-64.dylib')
-    def aarch64FilePath = new File(newPath + 'libtimescale-aarch64.dylib')
-    def finalFilePath = new File(newPath + 'libtimescale.dylib')
+    def x86FilePath = new File(newPath, 'libtimescale-x86-64.dylib')
+    def aarch64FilePath = new File(newPath, 'libtimescale-aarch64.dylib')
+    def finalFilePath = new File(newPath, 'libtimescale.dylib')
 
     def task = exec {
         workingDir newPath
