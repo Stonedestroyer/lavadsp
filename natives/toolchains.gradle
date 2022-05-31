@@ -25,13 +25,11 @@ task buildDarwinUniversalBinary {
         commandLine 'lipo', '-create', x86FilePath, aarch64FilePath, '-output', finalFilePath
         standardOutput = new ByteArrayOutputStream()
 
-        //extension method stopTomcat.output() can be used to obtain the output:
         ext.output = {
             return standardOutput.toString()
         }
     }
-    print(task)
-    print(task.output)
+    printf(task.output)
 }
 
 task buildDarwin {
