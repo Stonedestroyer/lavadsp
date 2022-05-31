@@ -104,11 +104,6 @@ tasks.withType(LinkSharedLibrary) {
     def arch = targetDirectoryName(it.targetPlatform.get())
     if(arch.contains("darwin")) {
         filename = filename.replace(".so", ".dylib")
-
-        if(suffix != null) {
-            throw new Exception("Invalid target '${it.targetPlatform.get()}'")
-        }
-
         filename = filename.replace("libtimescale", "libtimescale-${it.targetPlatform.get().architecture.name}")
     }
     if(flavor == "avx2") {
