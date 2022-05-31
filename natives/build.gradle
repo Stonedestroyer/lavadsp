@@ -71,6 +71,11 @@ model {
                         }
                     }
                     break
+                    case "universal":
+                        cCompiler.args << '-arch=x86_64' << '-arch=arm64'
+                        cppCompiler.args << '-arch=x86_64' << '-arch=arm64'
+                        printf("I got here")
+                    break
             //todo arm vectorization
             }
 
