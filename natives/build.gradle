@@ -105,14 +105,11 @@ tasks.withType(LinkSharedLibrary) {
     if(arch.contains("darwin")) {
         filename = filename.replace(".so", ".dylib")
 
-        def suffix = isX86_64(it.targetPlatform.get()) ? "x86-64"
-                : isArm64(it.targetPlatform.get()) ? "aarch64" : null
-
         if(suffix != null) {
             throw new Exception("Invalid target '${it.targetPlatform.get()}'")
         }
 
-        filename = filename.replace("libtimescale", "libtimescale-${suffix}")
+        filename = filename.replace("libtimescale", "libtimescale-${it.targetPlatform.get().architecture.name}")
     }
     if(flavor == "avx2") {
         if(!isX86(it.targetPlatform.get())) {
