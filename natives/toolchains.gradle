@@ -22,7 +22,7 @@ task buildDarwinUniversalBinary {
 
     def task = exec {
         workingDir newPath
-        commandLine 'lipo', '-create', x86FilePath, aarch64FilePath, '-output', finalFilePath
+        commandLine 'lipo', '-create', x86FilePath.getAbsoluteFile(), aarch64FilePath.getAbsoluteFile(), '-output', finalFilePath.getAbsoluteFile()
         standardOutput = new ByteArrayOutputStream()
 
         ext.output = {
