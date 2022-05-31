@@ -19,8 +19,10 @@ task buildDarwinUniversalBinary(type: Exec) {
     def aarch64FilePath = new File(newPath, 'libtimescale-aarch64.dylib')
     def finalFilePath = new File(newPath, 'libtimescale.dylib')
 
-    workingDir newPath
-    commandLine 'x86_64-apple-darwin21.4-lipo', '-create', x86FilePath.getAbsoluteFile(), aarch64FilePath.getAbsoluteFile(), '-output', finalFilePath.getAbsoluteFile()
+    doLast {
+        // workingDir newPath
+        commandLine 'x86_64-apple-darwin21.4-lipo', '-create', x86FilePath.getAbsoluteFile(), aarch64FilePath.getAbsoluteFile(), '-output', finalFilePath.getAbsoluteFile()
+    }
 }
 
 task buildDarwin {
