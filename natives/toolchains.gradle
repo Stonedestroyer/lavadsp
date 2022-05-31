@@ -11,25 +11,16 @@ task buildLinuxMusl64 {}
 task buildLinuxMuslAarch64 {}
 task buildWin32 {}
 task buildWin64 {}
-task buildDarwinUniversalBinary {
+task buildDarwinUniversalBinary(type: Exec) {
     def newPath = new File(rootProject.projectDir, "src/main/resources/natives/" + "darwin" + "/").getAbsoluteFile()
     print(newPath)
-    // use lipo to combine two files above
 
     def x86FilePath = new File(newPath, 'libtimescale-x86-64.dylib')
     def aarch64FilePath = new File(newPath, 'libtimescale-aarch64.dylib')
     def finalFilePath = new File(newPath, 'libtimescale.dylib')
 
-    def task = exec {
-        workingDir newPath
-        commandLine 'x86_64-apple-darwin21.4-lipo', '-create', x86FilePath.getAbsoluteFile(), aarch64FilePath.getAbsoluteFile(), '-output', finalFilePath.getAbsoluteFile()
-        standardOutput = new ByteArrayOutputStream()
-
-        ext.output = {
-            return standardOutput.toString()
-        }
-    }
-    printf(task.output)
+    workingDir newPath
+    commandLine 'x86_64-apple-darwin21.4-lipo', '-create', x86FilePath.getAbsoluteFile(), aarch64FilePath.getAbsoluteFile(), '-output', finalFilePath.getAbsoluteFile()
 }
 
 task buildDarwin {
@@ -52,51 +43,51 @@ task buildLinux {
 }
 
 static def platformName(p) {
-    if(p instanceof String) {
+    if (p instanceof String) {
         return p
     }
     return p.name
 }
 
 def targetDirectory = [
-        darwin_x86_x64: "darwin",
-        darwin_aarch64: "darwin",
-        freebsd_x86_64: "freebsd-x86-64",
-        linux_glibc_x86: "linux-x86",
-        linux_glibc_x86_64: "linux-x86-64",
-        linux_glibc_arm: "linux-arm",
+        darwin_x86_x64     : "darwin",
+        darwin_aarch64     : "darwin",
+        freebsd_x86_64     : "freebsd-x86-64",
+        linux_glibc_x86    : "linux-x86",
+        linux_glibc_x86_64 : "linux-x86-64",
+        linux_glibc_arm    : "linux-arm",
         linux_glibc_aarch64: "linux-aarch64",
-        linux_musl_x86_64: "linux-musl-x86-64",
-        linux_musl_aarch64: "linux-musl-aarch64",
-        windows_x86: "win-x86",
-        windows_x86_64: "win-x86-64",
+        linux_musl_x86_64  : "linux-musl-x86-64",
+        linux_musl_aarch64 : "linux-musl-aarch64",
+        windows_x86        : "win-x86",
+        windows_x86_64     : "win-x86-64",
 ]
 
 project.ext.targetDirectoryName = { platform ->
     def r = targetDirectory[platformName(platform)]
-    if(r == null) {
+    if (r == null) {
         throw new Exception("Invalid target '${platform}'")
     }
     return r
 }
 
 def tasksByTarget = [
-        darwin_x86_x64:      buildDarwin64,
-        darwin_aarch64:      buildDarwinAarch64,
-        freebsd_x86_64:      buildFreebsd64,
-        linux_glibc_x86:     buildLinuxGlibc32,
-        linux_glibc_x86_64:  buildLinuxGlibc64,
-        linux_glibc_arm:     buildLinuxGlibcArm,
+        darwin_x86_x64     : buildDarwin64,
+        darwin_aarch64     : buildDarwinAarch64,
+        freebsd_x86_64     : buildFreebsd64,
+        linux_glibc_x86    : buildLinuxGlibc32,
+        linux_glibc_x86_64 : buildLinuxGlibc64,
+        linux_glibc_arm    : buildLinuxGlibcArm,
         linux_glibc_aarch64: buildLinuxGlibcAarch64,
-        linux_musl_x86_64:   buildLinuxMusl64,
-        linux_musl_aarch64:  buildLinuxMuslAarch64,
-        windows_x86:         buildWin32,
-        windows_x86_64:      buildWin64
+        linux_musl_x86_64  : buildLinuxMusl64,
+        linux_musl_aarch64 : buildLinuxMuslAarch64,
+        windows_x86        : buildWin32,
+        windows_x86_64     : buildWin64
 ]
 
 project.ext.taskForTarget = { platform ->
     def t = tasksByTarget[platformName(platform)]
-    if(t == null) {
+    if (t == null) {
         throw new Exception("Invalid target '${platform}'")
     }
     return t
