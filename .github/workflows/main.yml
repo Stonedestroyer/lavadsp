@@ -112,7 +112,7 @@ jobs:
           chmod +x gradlew
           export PATH="$PATH:$(pwd)/osxcross/bin"
           export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(pwd)/osxcross/lib"
-          ./gradlew buildDarwinUniversalBinary --info --debug
+          ./gradlew buildDarwin --info --debug
       - uses: actions/upload-artifact@v2
         with:
           name: mac-natives
