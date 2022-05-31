@@ -105,8 +105,8 @@ tasks.withType(LinkSharedLibrary) {
     if(arch.contains("darwin")) {
         filename = filename.replace(".so", ".dylib")
 
-        def suffix = isX86_64(targetPlatform) ? "x86-64"
-                : isArm64(targetPlatform) ? "aarch64" : null
+        def suffix = isX86_64(it.targetPlatform) ? "x86-64"
+                : isArm64(it.targetPlatform) ? "aarch64" : null
 
         if(suffix != null) {
             throw new Exception("Invalid target '${it.targetPlatform.get()}'")
