@@ -135,7 +135,9 @@ model {
                 cppCompiler.executable 'o64-clang++-libc++'
                 linker.executable 'o64-clang++-libc++'
                 cCompiler.withArguments { args -> args << '-arch=x86_64' << '-arch=arm64' }
-                cppCompiler.withArguments { args -> args << '-arch=x86_64' << '-arch=arm64' }
+                cppCompiler.withArguments { args -> args << '-arch=x86_64' << '-arch=arm64'
+                    print("Args are ${args}")
+                }
                 linker.withArguments { args -> args << '-arch=x86_64' << '-arch=arm64' }
 
                 linker.withArguments { args ->
@@ -204,7 +206,6 @@ model {
     platforms {
         darwin {
             architecture "x86_64"
-            architecture "arm64e"
             operatingSystem "mac"
         }
         freebsd_x86_64 {
