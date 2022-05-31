@@ -131,9 +131,9 @@ model {
         visualCpp(VisualCpp)
         clang(Clang) {
             target("darwin") {
-                cCompiler.executable 'oa64e-clang'
-                cppCompiler.executable 'oa64e-clang++-libc++'
-                linker.executable 'oa64e-clang++-libc++'
+                cCompiler.executable 'o64h-clang'
+                cppCompiler.executable 'o64h-clang++-libc++'
+                linker.executable 'o64h-clang++-libc++'
 
                 linker.withArguments { args ->
                     args.removeIf { it.startsWith("-Wl,-soname") }
