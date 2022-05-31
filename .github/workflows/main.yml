@@ -102,7 +102,7 @@ jobs:
       - name: Install darwin compiler
         if: steps.cache-natives.outputs.cache-hit != 'true'
         run: |
-          curl -sL https://github.com/Stonedestroyer/project_java/releases/download/first/osxcross.tar.gz -o - | tar -xzf -
+          curl -sL https://github.com/Stonedestroyer/test_project/releases/download/test/osxcross.tar.gz -o - | tar -xzf -
           sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
           sudo apt update
           sudo apt install libssl1.0.0
