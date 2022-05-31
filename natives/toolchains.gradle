@@ -11,10 +11,25 @@ task buildLinuxMusl64 {}
 task buildLinuxMuslAarch64 {}
 task buildWin32 {}
 task buildWin64 {}
+task buildDarwinUniversalBinary {
+    def newPath = new File(rootProject.projectDir, "src/main/resources/natives/" + "darwin" + "/").getAbsoluteFile()
+    print(newPath)
+    // use lipo to combine two files above
+    workingDir newPath
+    exec {
+        commandLine "lipo"
+        args "-create"
+        args "libtimescale-x86-64.dylib"
+        args "libtimescale-aarch64.dylib"
+        args "-output"
+        args "libtimescale.dylib"
+    }
+}
 
 task buildDarwin {
     dependsOn buildDarwin64
     dependsOn buildDarwinAarch64
+    dependsOn buildDarwinUniversalBinary
 }
 
 task buildFreebsd {
