@@ -17,12 +17,7 @@ task buildDarwinUniversalBinary {
     // use lipo to combine two files above
     exec {
         workingDir newPath
-        commandLine "lipo"
-        args "-create"
-        args "libtimescale-x86-64.dylib"
-        args "libtimescale-aarch64.dylib"
-        args "-output"
-        args "libtimescale.dylib"
+        commandLine "x86_64-apple-darwin21.4-lipo", "-create", "libtimescale-x86-64.dylib", "libtimescale-aarch64.dylib", "-output", "libtimescale.dylib"
     }
 }
 
