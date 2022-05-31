@@ -104,7 +104,7 @@ tasks.withType(LinkSharedLibrary) {
     def arch = targetDirectoryName(it.targetPlatform.get())
     if(arch.contains("darwin")) {
         filename = filename.replace(".so", ".dylib")
-        filename = filename.replace("libtimescale", "libtimescale-${it.targetPlatform.get()}")
+        filename = filename.replace("libtimescale", "libtimescale-${platformName(it.targetPlatform.get())}")
     }
     if(flavor == "avx2") {
         if(!isX86(it.targetPlatform.get())) {
