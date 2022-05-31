@@ -11,7 +11,11 @@ task buildLinuxMusl64 {}
 task buildLinuxMuslAarch64 {}
 task buildWin32 {}
 task buildWin64 {}
-task buildDarwinUniversalBinary {
+
+task buildDarwin {
+    dependsOn buildDarwin64
+    dependsOn buildDarwinAarch64
+
     def newPath = new File(rootProject.projectDir, "src/main/resources/natives/" + "darwin" + "/")
 
     def x86FilePath = new File(newPath, 'libtimescale-x86-64.dylib')
@@ -27,12 +31,6 @@ task buildDarwinUniversalBinary {
 
         println "Output: $stdout"
     }
-}
-
-task buildDarwin {
-    dependsOn buildDarwin64
-    dependsOn buildDarwinAarch64
-    dependsOn buildDarwinUniversalBinary
 }
 
 task buildFreebsd {
