@@ -87,6 +87,8 @@ jobs:
           path: src/main/resources/natives/*
   mac-natives:
     runs-on: macos-11
+    env:
+      MACOSX_DEPLOYMENT_TARGET: 10.12.6
     steps:
       - uses: actions/checkout@v2
         with:
@@ -98,11 +100,6 @@ jobs:
           path: |
             src/main/resources/natives/darwin
           key: mac-${{ hashFiles('natives/**') }}
-      - name: Set up JDK
-        uses: actions/setup-java@v1
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        with:
-          java-version: 15
       - name: Install darwin compiler
         if: steps.cache-natives.outputs.cache-hit != 'true'
         run: |
