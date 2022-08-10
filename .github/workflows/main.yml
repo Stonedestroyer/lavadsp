@@ -44,7 +44,8 @@ jobs:
           name: linux-x86-natives
           path: src/main/resources/natives/*
   linux-arm-natives:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
+    container: ubuntu:18.04
     steps:
       - uses: actions/checkout@v2
         with:
