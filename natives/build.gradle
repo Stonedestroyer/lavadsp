@@ -58,7 +58,7 @@ model {
                 cppCompiler.define "ST_NO_EXCEPTION_HANDLING"
                 print("Target platform: ${targetPlatform}")
                 print("Target architecture: ${targetArchitecture}")
-                
+
                 if(targetPlatform in ['linux_glibc_arm', 'linux_glibc_aarch64']) {
                     cppCompiler.args << '-std=gnu++17' << '-O3' << '-fno-exceptions' << '-fno-rtti'
                 } else {
