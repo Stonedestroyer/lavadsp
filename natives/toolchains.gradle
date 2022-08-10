@@ -124,7 +124,7 @@ project.ext.isArm64 = { platform ->
 
 // Checks if CI and uses the github java path,
 // https://github.com/actions/runner-images/blob/main/images/macos/macos-11-Readme.md#java
-static def populateEnv = {
+def populateEnv = {
     if(System.getenv("CI") == "true") {
         return System.getenv("JAVA_HOME_8_X64")
     } else {
