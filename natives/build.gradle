@@ -56,7 +56,11 @@ model {
                 cCompiler.args << "/Ox"
             } else if(toolChain in Gcc || toolChain in Clang) {
                 cppCompiler.define "ST_NO_EXCEPTION_HANDLING"
-                cppCompiler.args << '-std=c++17' << '-O3' << '-fno-exceptions' << '-fno-rtti'
+                if(target in ['linux_glibc_arm', 'linux_glibc_aarch64']) {
+                    cppCompiler.args << '-std=gnu++17' << '-O3' << '-fno-exceptions' << '-fno-rtti'
+                } else {
+                    cppCompiler.args << '-std=c++17' << '-O3' << '-fno-exceptions' << '-fno-rtti'
+                }
                 cCompiler.args << "-O3"
             }
             switch(targetPlatform.architecture.name) {
