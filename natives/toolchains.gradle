@@ -132,8 +132,8 @@ model {
         clang(Clang) {
             target("darwin_x86_64") {
                 cCompiler.executable 'clang'
-                cppCompiler.executable 'clang++-libc++'
-                linker.executable 'clang++-libc++'
+                cppCompiler.executable 'clang++'
+                linker.executable 'clang++'
                 linker.withArguments { args ->
                     args.removeIf { it.startsWith("-Wl,-soname") }
                 }
