@@ -122,7 +122,17 @@ project.ext.isArm64 = { platform ->
     return platformName(platform).endsWith("aarch64")
 }
 
-def base_jni_include = System.getProperty("java.home") + '/include'
+// Checks if CI and uses the github java path,
+// https://github.com/actions/runner-images/blob/main/images/macos/macos-11-Readme.md#java
+static def populateEnv = {
+    if(System.getenv("CI") == "true") {
+        return System.getenv("JAVA_HOME_8_X64")
+    } else {
+        return System.getProperty("java.home")
+    }
+}
+
+def base_jni_include = populateEnv() + '/include'
 def os_jni_include = base_jni_include + '/' + (Os.isFamily(Os.FAMILY_WINDOWS) ? 'win32' : Os.isFamily(Os.FAMILY_MAC) ? 'darwin' : 'linux')
 def freebsd_sysroot = new File(rootProject.projectDir, 'freebsd_sysroot')
 
