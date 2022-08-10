@@ -48,10 +48,8 @@ jobs:
     container: centos:7
     steps:
       - uses: actions/checkout@v2
-        with:
-          submodules: recursive
       - name: Cache natives
-        uses: actions/cache@v2
+        uses: actions/cache@v2z
         id: cache-natives
         with:
           path: |
