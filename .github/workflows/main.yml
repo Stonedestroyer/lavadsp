@@ -68,6 +68,7 @@ jobs:
           # installing these two breaks i386 compilation
           # https://bugs.launchpad.net/ubuntu/+source/gcc-defaults/+bug/1300211
           apt update
+          apt install curl git -y
           DEBIAN_FRONTEND=noninteractive apt install g++-arm-linux-gnueabihf -y
           DEBIAN_FRONTEND=noninteractive apt install g++-aarch64-linux-gnu -y
           curl -sL https://github.com/natanbc/actions-binaries/releases/download/1/aarch64-linux-musl-cross.tgz -o - | tar xzf -
