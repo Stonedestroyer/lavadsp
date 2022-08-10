@@ -86,7 +86,7 @@ jobs:
           name: linux-arm-natives
           path: src/main/resources/natives/*
   mac-natives:
-    runs-on: macos-latest
+    runs-on: macos-11
     steps:
       - uses: actions/checkout@v2
         with:
