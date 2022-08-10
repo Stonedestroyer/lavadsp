@@ -69,8 +69,8 @@ jobs:
           # https://bugs.launchpad.net/ubuntu/+source/gcc-defaults/+bug/1300211
           yum install epel-release -y
           yum install git -y
-          yum install gcc-c++-arm-linux-gnu -y
-          yum install gcc-c++-aarch64-linux-gnu -y
+          yum install gcc-c++-arm-linux-gnu gcc-aarch64-linux-gnu  binutils-arm-linux-gnu -y
+          yum install gcc-c++-aarch64-linux-gnu gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu -y
           curl -sL https://github.com/natanbc/actions-binaries/releases/download/1/aarch64-linux-musl-cross.tgz -o - | tar xzf -
       - name: Build ARM natives
         if: steps.cache-natives.outputs.cache-hit != 'true'
