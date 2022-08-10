@@ -142,10 +142,10 @@ model {
         }
         glibc(Gcc) {
             target("linux_glibc_arm") {
-                cCompiler.executable 'arm-linux-gnueabihf-gcc'
-                cppCompiler.executable 'arm-linux-gnueabihf-g++'
-                linker.executable 'arm-linux-gnueabihf-g++'
-                staticLibArchiver.executable 'arm-linux-gnueabihf-ar'
+                cCompiler.executable 'arm-linux-gnu-gcc'
+                cppCompiler.executable 'arm-linux-gnu-g++'
+                linker.executable 'arm-linux-gnu-g++'
+                staticLibArchiver.executable 'arm-linux-gnu-ar'
             }
             target("linux_glibc_aarch64") {
                 cCompiler.executable 'aarch64-linux-gnu-gcc'
